@@ -152,7 +152,7 @@ uint32_t Chip_UART_SetBaud(LPC_USART_T *pUART, uint32_t baudrate)
 	Chip_UART_SetDivisorLatches(pUART, divl, divh);
 	Chip_UART_DisableDivisorAccess(pUART);
 
-	/* Fractional FDR alreadt setup for 1 in UART init */
+	/* Fractional FDR already setup for 1 in UART init */
 
 	return clkin / div;
 }

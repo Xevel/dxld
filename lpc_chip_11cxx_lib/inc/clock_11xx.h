@@ -431,7 +431,6 @@ typedef enum CHIP_SYSCTL_CLKOUTSRC {
 	SYSCTL_CLKOUTSRC_IRC = 0,		/*!< Internal oscillator for CLKOUT */
 	SYSCTL_CLKOUTSRC_MAINOSC,		/*!< Main oscillator for CLKOUT */
 	SYSCTL_CLKOUTSRC_WDTOSC,		/*!< Watchdog oscillator for CLKOUT */
-	SYSCTL_CLKOUTSRC_LFOSC = SYSCTL_CLKOUTSRC_WDTOSC,	/*!< LF oscillator rate (LPC11A/Exx only) for CLKOUT */
 	SYSCTL_CLKOUTSRC_MAINSYSCLK,	/*!< Main system clock for CLKOUT */
 } CHIP_SYSCTL_CLKOUTSRC_T;
 

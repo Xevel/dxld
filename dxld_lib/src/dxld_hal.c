@@ -127,8 +127,7 @@ uint32_t DxldHALInit(dxld_baudrate_t dxl_baud){
 	// Set fractional divider
 	DXLD_UART->FDR = (UART_FDR_MULVAL(mul_val) | UART_FDR_DIVADDVAL(divadd_val));
 
-	// enable hardware hardware
-	Chip_UART_TXEnable(DXLD_UART);
+	Chip_UART_TXDisable(DXLD_UART);
 
 	HAL_initialized = true;
 	tx_buffer[0] = 0xFF;
@@ -137,7 +136,7 @@ uint32_t DxldHALInit(dxld_baudrate_t dxl_baud){
 	Chip_UART_SetupFIFOS(DXLD_UART, (UART_FCR_FIFO_EN | UART_FCR_RX_RS | UART_FCR_TX_RS | DXLD_RX_INT_LVL)); // reset and enable FIFOs
 
 	Chip_UART_IntEnable(LPC_USART, DXLD_INT_MASK);
-
+	NVIC_SetPriority(UART0_IRQn, 0);
 	NVIC_EnableIRQ(UART0_IRQn);
 
 
@@ -146,6 +145,7 @@ uint32_t DxldHALInit(dxld_baudrate_t dxl_baud){
 
 // undo initialization
 void DxldHALDeInit(){
+	NVIC_DisableIRQ(UART0_IRQn);
 	HAL_initialized = false;
 	Chip_UART_DeInit(DXLD_UART);
 	Chip_GPIO_SetPinDIRInput(LPC_GPIO, DXLD_TX_EN_PORT, DXLD_TX_EN_PIN);
@@ -153,19 +153,21 @@ void DxldHALDeInit(){
 
 
 static inline void HAL_SetTX(){
-	Chip_UART_IntDisable(LPC_USART, DXLD_INT_MASK); //disable RX interrupts
-	Chip_UART_SetupFIFOS(DXLD_UART, (UART_FCR_FIFO_EN | UART_FCR_TX_RS)); // Clear TX FIFO
+	Chip_UART_SetRS485Flags(DXLD_UART, UART_RS485CTRL_RX_DIS); // disable RX
+	Chip_UART_SetupFIFOS(DXLD_UART, (UART_FCR_FIFO_EN | UART_FCR_TX_RS | DXLD_RX_INT_LVL)); // Clear TX FIFO
+	Chip_UART_TXEnable(DXLD_UART);
 	Chip_GPIO_SetPinState(LPC_GPIO, DXLD_TX_EN_PORT, DXLD_TX_EN_PIN, DXLD_MODE_TX);
 }
 
 
 static inline void HAL_SetRX(){
 	while ( (Chip_UART_ReadLineStatus(DXLD_UART) & UART_LSR_TEMT) == 0 ); // wait for all bytes sent
-	Chip_GPIO_SetPinState(LPC_GPIO, DXLD_TX_EN_PORT, DXLD_TX_EN_PIN, DXLD_MODE_RX);
+	// TEMT is set when only 50% of the stop bit is sent, but the line logic level is High,
+	// so we can go on without fear of spurious signal
 
-	//clear RX FIFO as it contains what we've sent
-	Chip_UART_SetupFIFOS(DXLD_UART, (UART_FCR_FIFO_EN | UART_FCR_RX_RS | DXLD_RX_INT_LVL));
-	Chip_UART_IntEnable(LPC_USART, DXLD_INT_MASK);
+	Chip_UART_TXDisable(DXLD_UART);
+	Chip_GPIO_SetPinState(LPC_GPIO, DXLD_TX_EN_PORT, DXLD_TX_EN_PIN, DXLD_MODE_RX);
+	Chip_UART_ClearRS485Flags(DXLD_UART, UART_RS485CTRL_RX_DIS); //enable RX
 }
 
 
@@ -273,9 +275,8 @@ void UART_IRQHandler (){
 	// Both are cleared by reading data from the FIFO
 	//Chip_GPIO_SetPinOutHigh(LPC_GPIO, 0,8); // TMP TODO
 
-	do{
-//		Chip_GPIO_SetPinOutHigh(LPC_GPIO, 0,8); // TMP TODO
-//		Chip_GPIO_SetPinOutLow(LPC_GPIO, 0,8);// TMP TODO
+	while ( DxldHALDataAvailable() ){
+		//Chip_GPIO_SetPinOutHigh(LPC_GPIO, 0,8); // TMP TODO
 
 		uint8_t c = Chip_UART_ReadByte(DXLD_UART);
 
@@ -284,10 +285,17 @@ void UART_IRQHandler (){
 		} else {
 			DxldParse(c);
 		}
+		//Chip_GPIO_SetPinOutLow(LPC_GPIO, 0,8);// TMP TODO
+	}
 
-	}while ( DxldHALDataAvailable() );
+	// Potential spurious pending interrupt:
+	// see AN10414.pdf : "Handling of spurious interrupts in the LPC2000"
+	// Here the RDA/CTI interrupt could be made pending if immediately after we read the first byte
+	// in the FIFO another one arrives. Even though the FIFO would then be emptied, making RDR = 0,
+	// the interrupt pending flag would remain...
 
-	//Chip_GPIO_SetPinOutLow(LPC_GPIO, 0,8);// TMP TODO
+
+	//Chip_GPIO_SetPinOutLow(LPC_GPIO, 0,9);// TMP TODO
 
 }
 
@@ -297,12 +305,15 @@ void UART_IRQHandler (){
 // For testing. Writes a byte and waits for it to be completely output.
 void DxldHALWriteByte_debug(uint8_t c, uint32_t return_to_rx){
 	if (HAL_initialized){
-		HAL_SetTX();
+		Chip_UART_SetupFIFOS(DXLD_UART, (UART_FCR_FIFO_EN | UART_FCR_TX_RS | UART_FCR_RX_RS | DXLD_RX_INT_LVL)); // Clear TX FIFO
+		Chip_UART_TXEnable(DXLD_UART);
+		Chip_GPIO_SetPinState(LPC_GPIO, DXLD_TX_EN_PORT, DXLD_TX_EN_PIN, DXLD_MODE_TX);
 		while ( (Chip_UART_ReadLineStatus(DXLD_UART) & UART_LSR_THRE) == 0 ); // wait for free space in TX fifo
 		Chip_UART_SendByte(DXLD_UART, c);
 		while ( (Chip_UART_ReadLineStatus(DXLD_UART) & UART_LSR_TEMT) == 0  ); // wait for all bytes sent
 		if(return_to_rx){
 			HAL_SetRX();
+			Chip_UART_SetupFIFOS(DXLD_UART, (UART_FCR_FIFO_EN | UART_FCR_TX_RS | UART_FCR_RX_RS | DXLD_RX_INT_LVL)); // Clear TX FIFO
 		}
 	}
 }
@@ -310,6 +321,7 @@ void DxldHALWriteByte_debug(uint8_t c, uint32_t return_to_rx){
 // For hardware testing. Writes stuff and checks that it can be read on RX
 bool DxldHALCheckEcho_debug(){
 	if (HAL_initialized){
+		NVIC_DisableIRQ(UART0_IRQn);
 
 		Chip_UART_SetupFIFOS(DXLD_UART, (UART_FCR_FIFO_EN | UART_FCR_TX_RS | UART_FCR_RX_RS)); // Clear TX and RX FIFO
 		Chip_GPIO_SetPinState(LPC_GPIO, DXLD_TX_EN_PORT, DXLD_TX_EN_PIN, DXLD_MODE_TX); // set pin direction to TX
@@ -329,6 +341,7 @@ bool DxldHALCheckEcho_debug(){
 			}
 		}
 		HAL_SetRX();
+		NVIC_EnableIRQ(UART0_IRQn);
 		return success;
 	}
 	return false;

@@ -80,7 +80,7 @@
 								</option>
 								<option id="gnu.c.link.option.paths.2146683382" name="Library search path (-L)" superClass="gnu.c.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/dxld_lib/Debug}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lpc_chip_11cxx_lib/Debug}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lpc_chip_11cxx_lib/Release}&quot;"/>
 								</option>
 								<option id="com.crt.advproject.link.crpenable.833847207" name="Enable Code Read Protect" superClass="com.crt.advproject.link.crpenable" value="true" valueType="boolean"/>
 								<option id="com.crt.advproject.link.gcc.multicore.slave.1263421835" name="Multicore configuration" superClass="com.crt.advproject.link.gcc.multicore.slave"/>
@@ -102,7 +102,7 @@
 				<externalSettings containerId="lpc_chip_11cxx_lib;" factoryId="org.eclipse.cdt.core.cfg.export.settings.sipplier">
 					<externalSetting>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/lpc_chip_11cxx_lib"/>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/lpc_chip_11cxx_lib/Debug"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/lpc_chip_11cxx_lib/Release"/>
 						<entry flags="RESOLVED" kind="libraryFile" name="lpc_chip_11cxx_lib" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
@@ -187,12 +187,12 @@
 								</option>
 								<option id="com.crt.advproject.link.gcc.hdrlib.750735188" name="Library" superClass="com.crt.advproject.link.gcc.hdrlib" value="com.crt.advproject.gcc.link.hdrlib.codered.none" valueType="enumerated"/>
 								<option id="gnu.c.link.option.libs.625644095" name="Libraries (-l)" superClass="gnu.c.link.option.libs" valueType="libs">
-									<listOptionValue builtIn="false" value="dxld_lib"/>
-									<listOptionValue builtIn="false" value="lpc_chip_11cxx_lib"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="dxld_lib"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="lpc_chip_11cxx_lib"/>
 								</option>
 								<option id="gnu.c.link.option.paths.1357335260" name="Library search path (-L)" superClass="gnu.c.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/dxld_lib/Debug}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lpc_chip_11cxx_lib/Debug}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lpc_chip_11cxx_lib/Release}&quot;"/>
 								</option>
 								<option id="com.crt.advproject.link.crpenable.801100341" name="Enable Code Read Protect" superClass="com.crt.advproject.link.crpenable" value="true" valueType="boolean"/>
 								<option id="com.crt.advproject.link.gcc.multicore.slave.549829794" name="Multicore configuration" superClass="com.crt.advproject.link.gcc.multicore.slave"/>
@@ -214,7 +214,7 @@
 				<externalSettings containerId="lpc_chip_11cxx_lib;" factoryId="org.eclipse.cdt.core.cfg.export.settings.sipplier">
 					<externalSetting>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/lpc_chip_11cxx_lib"/>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/lpc_chip_11cxx_lib/Debug"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/lpc_chip_11cxx_lib/Release"/>
 						<entry flags="RESOLVED" kind="libraryFile" name="lpc_chip_11cxx_lib" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>

@@ -10,6 +10,8 @@
 #include "dxld_lib.h"
 #include "dxld_hal.h"
 
+// TODO convert to fully automated verification...
+
 static uint32_t test_init(dxld_baudrate_t baud){
 	uint32_t actual_baud = DxldHALInit(baud);
 	DxldHALWriteByte_debug('d', false);
@@ -199,10 +201,13 @@ static void test_return_delay(){
 }
 
 void run_test_hal(){
+	__disable_irq();
+
 	test_DxldHALInit();
+	test_DxldHALDataAvailable();
 	test_DxldHALStatusPacket();
 	test_checksum();
-	test_DxldHALDataAvailable();
-	//test_DxldHALGetByte();
 	test_return_delay();
+
+	__enable_irq();
 }

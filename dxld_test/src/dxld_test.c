@@ -49,9 +49,11 @@ void Delay_ms (uint32_t delay_duration_ms) {
 int main(void) {
 	// Read clock settings and update SystemCoreClock variable
     SystemCoreClockUpdate();
-//    // Set up and initialize all required blocks and
-//    // functions related to the board hardware
-//    Chip_Init();
+
+    // configure UART pins
+	Chip_IOCON_PinMuxSet(LPC_IOCON, IOCON_PIO1_6, (IOCON_FUNC1 | IOCON_MODE_INACT));// RXD
+	Chip_IOCON_PinMuxSet(LPC_IOCON, IOCON_PIO1_7, (IOCON_FUNC1 | IOCON_MODE_INACT));// TXD
+	Chip_IOCON_PinMuxSet(LPC_IOCON, IOCON_PIO0_1, (IOCON_FUNC0 | IOCON_MODE_INACT));// RX_MODE
 
 	// use 32 bits timer to count ms directly. Overflows in about 49 days
 	Chip_TIMER_Init(       TIMER_MS);

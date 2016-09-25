@@ -449,7 +449,7 @@ void DxldEndpointStatusPacketEmpty(dxld_endpoint_t* endpoint, dxld_error_t error
 void DxldEndpointStatusPacketRead(dxld_endpoint_t* endpoint, dxld_error_t error, uint8_t start_addr, uint8_t nb_bytes, uint8_t return_level){
 	if( return_level <= endpoint->table[endpoint->addr_status_return_level] ){
 		uint8_t dxl_id = endpoint->table[DXLD_ADDR_ID];
-		uint8_t return_delay_us = 4 * (uint16_t)endpoint->table[endpoint->addr_return_delay_time];
+		uint16_t return_delay_us = 4 * (uint16_t)endpoint->table[endpoint->addr_return_delay_time];
 		uint8_t* data = NULL;
 		uint8_t available_param = 0;  // number of available bytes in the table starting from start_addr
 		if ( start_addr < endpoint->table_size ){

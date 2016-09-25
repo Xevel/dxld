@@ -52,26 +52,23 @@ static void Parse_SendStatusPacket(dxld_endpoint_t* endpoint, dxld_error_t error
 
 
 static void DxldManageSyncWrite(){
-	if( dxld_packet.nb_expected_params >= 4 ){
+	if( dxld_packet.nb_expected_params >= 4 ){ // minimum : start address, length to write, first ID, first data byte
 		uint8_t start_addr = dxld_packet.params[0];
 		uint8_t nb_to_write = dxld_packet.params[1];
 
-		if ( nb_to_write >= dxld_packet.nb_expected_params - 3){
+		// hop from the start of one subpacket to the next.
+		// If there is some data at the end that do not amount to a full subpacket, it is ignored
+		for (unsigned int i = 2; i + nb_to_write + 1 <= dxld_packet.nb_expected_params; i += nb_to_write + 1){
+			uint8_t dxl_id =  dxld_packet.params[i];
+			uint8_t* dxl_data =  &dxld_packet.params[i+1];
 
-			// hop from the start of one subpacket to the next.
-			// If there is some data at the end that do not amount to a full subpacket, it is ignored
-			for (unsigned int i = 2; i < dxld_packet.nb_expected_params - nb_to_write; i += nb_to_write + 1){
-				uint8_t dxl_id =  dxld_packet.params[i];
-				uint8_t* dxl_data =  &dxld_packet.params[i+1];
+			dxld_endpoint_t* endpoint = DxldEndpointGetFromDynamixelID(dxl_id);
 
-				dxld_endpoint_t* endpoint = DxldEndpointGetFromDynamixelID(dxl_id);
-
-				// ignore subpackets that are not for any endpoint, and those addressed to broadcast too
-				if ( endpoint != NULL && dxl_id != DXL_ID_BROADCAST ){
-					dxld_error_t error = DxldEndpointWriteCheck(endpoint, start_addr, dxl_data, nb_to_write, false, false);
-					if (error == DXL_ERROR_NONE){
-						DxldEndpointWriteAfterCheck( endpoint, start_addr, dxl_data, nb_to_write, false, false );
-					}
+			// ignore subpackets that are not for any endpoint, and those addressed to broadcast too
+			if ( endpoint != NULL && dxl_id != DXL_ID_BROADCAST ){
+				dxld_error_t error = DxldEndpointWriteCheck(endpoint, start_addr, dxl_data, nb_to_write, false, false);
+				if (error == DXL_ERROR_NONE){
+					DxldEndpointWriteAfterCheck( endpoint, start_addr, dxl_data, nb_to_write, false, false );
 				}
 			}
 		}

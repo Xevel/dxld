@@ -25,7 +25,7 @@
 					<folderInfo id="com.crt.advproject.config.lib.debug.1442075865." name="/" resourcePath="">
 						<toolChain id="com.crt.advproject.toolchain.lib.debug.932880957" name="Code Red MCU Tools" superClass="com.crt.advproject.toolchain.lib.debug">
 							<targetPlatform binaryParser="org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.GNU_ELF" id="com.crt.advproject.platform.lib.debug.344326644" name="ARM-based MCU (Debug)" superClass="com.crt.advproject.platform.lib.debug"/>
-							<builder buildPath="${workspace_loc:/lpc_chip_11cxx_lib}/Debug" id="com.crt.advproject.builder.lib.debug.1830786250" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="com.crt.advproject.builder.lib.debug"/>
+							<builder buildPath="${workspace_loc:/lpc_chip_11cxx_lib}/Debug" id="com.crt.advproject.builder.lib.debug.1830786250" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="com.crt.advproject.builder.lib.debug"/>
 							<tool id="com.crt.advproject.cpp.lib.debug.1909940320" name="MCU C++ Compiler" superClass="com.crt.advproject.cpp.lib.debug"/>
 							<tool id="com.crt.advproject.gcc.lib.debug.1840780258" name="MCU C Compiler" superClass="com.crt.advproject.gcc.lib.debug">
 								<option id="com.crt.advproject.gcc.arch.1727983901" name="Architecture" superClass="com.crt.advproject.gcc.arch" value="com.crt.advproject.gcc.target.cm0" valueType="enumerated"/>
@@ -41,6 +41,7 @@
 								<option id="gnu.c.compiler.option.include.paths.700731317" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc}&quot;"/>
 								</option>
+								<option id="com.crt.advproject.c.misc.dialect.1095234226" name="Language standard" superClass="com.crt.advproject.c.misc.dialect" value="com.crt.advproject.misc.dialect.gnu99" valueType="enumerated"/>
 								<inputType id="com.crt.advproject.compiler.input.1154195022" superClass="com.crt.advproject.compiler.input"/>
 							</tool>
 							<tool id="com.crt.advproject.gas.lib.debug.229024419" name="MCU Assembler" superClass="com.crt.advproject.gas.lib.debug">
@@ -86,7 +87,7 @@
 					<folderInfo id="com.crt.advproject.config.lib.release.508849794." name="/" resourcePath="">
 						<toolChain id="com.crt.advproject.toolchain.lib.release.164382437" name="Code Red MCU Tools" superClass="com.crt.advproject.toolchain.lib.release">
 							<targetPlatform binaryParser="org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.GNU_ELF" id="com.crt.advproject.platform.lib.release.1232557452" name="ARM-based MCU (Debug)" superClass="com.crt.advproject.platform.lib.release"/>
-							<builder buildPath="${workspace_loc:/lpc_chip_11cxx_lib}/Release" id="com.crt.advproject.builder.lib.release.1166964780" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="com.crt.advproject.builder.lib.release"/>
+							<builder buildPath="${workspace_loc:/lpc_chip_11cxx_lib}/Release" id="com.crt.advproject.builder.lib.release.1166964780" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="com.crt.advproject.builder.lib.release"/>
 							<tool id="com.crt.advproject.cpp.lib.release.602677144" name="MCU C++ Compiler" superClass="com.crt.advproject.cpp.lib.release"/>
 							<tool id="com.crt.advproject.gcc.lib.release.2134704597" name="MCU C Compiler" superClass="com.crt.advproject.gcc.lib.release">
 								<option id="com.crt.advproject.gcc.arch.1872421259" name="Architecture" superClass="com.crt.advproject.gcc.arch" value="com.crt.advproject.gcc.target.cm0" valueType="enumerated"/>
@@ -103,6 +104,7 @@
 								<option id="gnu.c.compiler.option.include.paths.393575265" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc}&quot;"/>
 								</option>
+								<option id="com.crt.advproject.c.misc.dialect.259832528" name="Language standard" superClass="com.crt.advproject.c.misc.dialect" value="com.crt.advproject.misc.dialect.gnu99" valueType="enumerated"/>
 								<inputType id="com.crt.advproject.compiler.input.1579313006" superClass="com.crt.advproject.compiler.input"/>
 							</tool>
 							<tool id="com.crt.advproject.gas.lib.release.1783007152" name="MCU Assembler" superClass="com.crt.advproject.gas.lib.release">
@@ -135,8 +137,8 @@
 	<storageModule moduleId="com.crt.config">
 		<projectStorage>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&#13;
 &lt;TargetConfig&gt;&#13;
-&lt;Properties property_0="" property_2="LPC11_12_13_32K_8K.cfx" property_3="NXP" property_4="LPC11C24/301" property_count="5" version="70200"/&gt;&#13;
-&lt;infoList vendor="NXP"&gt;&lt;info chip="LPC11C24/301" flash_driver="LPC11_12_13_32K_8K.cfx" match_id="0x1430102B" name="LPC11C24/301" stub="crt_emu_lpc11_13_nxp"&gt;&lt;chip&gt;&lt;name&gt;LPC11C24/301&lt;/name&gt;&#13;
+&lt;Properties property_0="" property_2="LPC11_12_13_32K_8K.cfx" property_3="NXP" property_4="LPC1114/302" property_count="5" version="70200"/&gt;&#13;
+&lt;infoList vendor="NXP"&gt;&lt;info chip="LPC1114/302" flash_driver="LPC11_12_13_32K_8K.cfx" match_id="0x2540102b" name="LPC1114/302" stub="crt_emu_lpc11_13_nxp"&gt;&lt;chip&gt;&lt;name&gt;LPC1114/302&lt;/name&gt;&#13;
 &lt;family&gt;LPC11xx&lt;/family&gt;&#13;
 &lt;vendor&gt;NXP (formerly Philips)&lt;/vendor&gt;&#13;
 &lt;reset board="None" core="Real" sys="Real"/&gt;&#13;
@@ -146,27 +148,26 @@
 &lt;memory id="Periph" is_volatile="true" type="Peripheral"/&gt;&#13;
 &lt;memoryInstance derived_from="Flash" id="MFlash32" location="0x0" size="0x8000"/&gt;&#13;
 &lt;memoryInstance derived_from="RAM" id="RamLoc8" location="0x10000000" size="0x2000"/&gt;&#13;
-&lt;peripheralInstance derived_from="V6M_NVIC" determined="infoFile" id="NVIC" location="0xe000e000"/&gt;&#13;
-&lt;peripheralInstance derived_from="V6M_DCR" determined="infoFile" id="DCR" location="0xe000edf0"/&gt;&#13;
-&lt;peripheralInstance derived_from="I2C" determined="infoFile" id="I2C" location="0x40000000"/&gt;&#13;
-&lt;peripheralInstance derived_from="WWDT" determined="infoFile" id="WWDT" location="0x40004000"/&gt;&#13;
-&lt;peripheralInstance derived_from="UART" determined="infoFile" id="UART" location="0x40008000"/&gt;&#13;
-&lt;peripheralInstance derived_from="CT16B0" determined="infoFile" id="CT16B0" location="0x4000c000"/&gt;&#13;
-&lt;peripheralInstance derived_from="CT16B1" determined="infoFile" id="CT16B1" location="0x40010000"/&gt;&#13;
-&lt;peripheralInstance derived_from="CT32B0" determined="infoFile" id="CT32B0" location="0x40014000"/&gt;&#13;
-&lt;peripheralInstance derived_from="CT32B1" determined="infoFile" id="CT32B1" location="0x40018000"/&gt;&#13;
-&lt;peripheralInstance derived_from="ADC" determined="infoFile" id="ADC" location="0x4001c000"/&gt;&#13;
-&lt;peripheralInstance derived_from="PMU" determined="infoFile" id="PMU" location="0x40038000"/&gt;&#13;
-&lt;peripheralInstance derived_from="FLASHCTRL" determined="infoFile" id="FLASHCTRL" location="0x4003c000"/&gt;&#13;
-&lt;peripheralInstance derived_from="SPI0" determined="infoFile" id="SPI0" location="0x40040000"/&gt;&#13;
-&lt;peripheralInstance derived_from="IOCON" determined="infoFile" id="IOCON" location="0x40044000"/&gt;&#13;
-&lt;peripheralInstance derived_from="SYSCON" determined="infoFile" id="SYSCON" location="0x40048000"/&gt;&#13;
-&lt;peripheralInstance derived_from="SPI1" determined="infoFile" id="SPI1" location="0x40058000"/&gt;&#13;
-&lt;peripheralInstance derived_from="GPIO0" determined="infoFile" id="GPIO0" location="0x50000000"/&gt;&#13;
-&lt;peripheralInstance derived_from="GPIO1" determined="infoFile" id="GPIO1" location="0x50010000"/&gt;&#13;
-&lt;peripheralInstance derived_from="GPIO2" determined="infoFile" id="GPIO2" location="0x50020000"/&gt;&#13;
-&lt;peripheralInstance derived_from="GPIO3" determined="infoFile" id="GPIO3" location="0x50030000"/&gt;&#13;
-&lt;peripheralInstance derived_from="C-CAN" determined="infoFile" id="C-CAN" location="0x40050000"/&gt;&#13;
+&lt;peripheralInstance derived_from="V6M_NVIC" id="NVIC" location="0xe000e000"/&gt;&#13;
+&lt;peripheralInstance derived_from="V6M_DCR" id="DCR" location="0xe000edf0"/&gt;&#13;
+&lt;peripheralInstance derived_from="I2C" id="I2C" location="0x40000000"/&gt;&#13;
+&lt;peripheralInstance derived_from="WWDT" id="WWDT" location="0x40004000"/&gt;&#13;
+&lt;peripheralInstance derived_from="UART" id="UART" location="0x40008000"/&gt;&#13;
+&lt;peripheralInstance derived_from="CT16B0" id="CT16B0" location="0x4000c000"/&gt;&#13;
+&lt;peripheralInstance derived_from="CT16B1" id="CT16B1" location="0x40010000"/&gt;&#13;
+&lt;peripheralInstance derived_from="CT32B0" id="CT32B0" location="0x40014000"/&gt;&#13;
+&lt;peripheralInstance derived_from="CT32B1" id="CT32B1" location="0x40018000"/&gt;&#13;
+&lt;peripheralInstance derived_from="ADC" id="ADC" location="0x4001c000"/&gt;&#13;
+&lt;peripheralInstance derived_from="PMU" id="PMU" location="0x40038000"/&gt;&#13;
+&lt;peripheralInstance derived_from="FLASHCTRL" id="FLASHCTRL" location="0x4003c000"/&gt;&#13;
+&lt;peripheralInstance derived_from="SPI0" id="SPI0" location="0x40040000"/&gt;&#13;
+&lt;peripheralInstance derived_from="IOCON" id="IOCON" location="0x40044000"/&gt;&#13;
+&lt;peripheralInstance derived_from="SYSCON" id="SYSCON" location="0x40048000"/&gt;&#13;
+&lt;peripheralInstance derived_from="SPI1" id="SPI1" location="0x40058000"/&gt;&#13;
+&lt;peripheralInstance derived_from="GPIO0" id="GPIO0" location="0x50000000"/&gt;&#13;
+&lt;peripheralInstance derived_from="GPIO1" id="GPIO1" location="0x50010000"/&gt;&#13;
+&lt;peripheralInstance derived_from="GPIO2" id="GPIO2" location="0x50020000"/&gt;&#13;
+&lt;peripheralInstance derived_from="GPIO3" id="GPIO3" location="0x50030000"/&gt;&#13;
 &lt;/chip&gt;&#13;
 &lt;processor&gt;&lt;name gcc_name="cortex-m0"&gt;Cortex-M0&lt;/name&gt;&#13;
 &lt;family&gt;Cortex-M&lt;/family&gt;&#13;
@@ -176,5 +177,12 @@
 &lt;/infoList&gt;&#13;
 &lt;/TargetConfig&gt;</projectStorage>
 	</storageModule>
-	<storageModule moduleId="refreshScope"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Release">
+			<resource resourceType="PROJECT" workspacePath="/lpc_chip_11cxx_lib"/>
+		</configuration>
+		<configuration configurationName="Debug">
+			<resource resourceType="PROJECT" workspacePath="/lpc_chip_11cxx_lib"/>
+		</configuration>
+	</storageModule>
 </cproject>
